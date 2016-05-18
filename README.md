@@ -1,9 +1,9 @@
-# InthegraAPI-STRANS
+# InthegraAPI-STRANS-Python
 
-*Classes Helper* em Python que demonstram o uso da API REST do Sistema de Transporte da STRANS/Teresina-PI, disponível em [Api Inthegra](https://inthegra.strans.teresina.pi.gov.br/)
+**Classes Helper** em Python que demonstram o uso da API REST do Sistema de Transporte da STRANS/Teresina-PI, disponível em [Api Inthegra](https://inthegra.strans.teresina.pi.gov.br/)
 
 ### Status deste código
-- *Em desenvolvimento*
+- **Em desenvolvimento**
 - TODO List:
 1. Repo local de itens como: Paradas e Rodas
 2. Organizar classes/pacotes
@@ -61,7 +61,7 @@ def imprimir_paradas(paradas):
         print(p)
 ```
 
-- Obter Posiciomento atual dos Ônibus no Sistema
+- Obter Posicionamento atual dos Ônibus no Sistema
 ```python
 def test_posicao_veiculos_por_linha(codigo_linha):
     try:
