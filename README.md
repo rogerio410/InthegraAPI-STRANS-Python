@@ -2,6 +2,19 @@
 
 *Classes Helper* em Python que demonstram o uso da API REST do Sistema de Transporte da STRANS/Teresina-PI, disponível em [Api Inthegra](https://inthegra.strans.teresina.pi.gov.br/)
 
+### Status deste código
+- *Em desenvolvimento*
+- TODO List:
+1. Repo local de itens como: Paradas e Rodas
+2. Organizar classes/pacotes
+3. Incluir novas funcionalidades que a Inthegra não disponibiliza
+4. Disponibilizar uma API Wrapper da API Inthegra, com as novas funcionalidades
+5. Fazer uma App de Uso dessas classes help
+
+### Quer participar deste projeto comigo?
+rogerio.silva at ifpi.edu.br
+
+
 ## Requisitos
 
 - Python 3 (Para uso com Python 2.7, basta basta ajustar a função ```print``` no demo.py)
