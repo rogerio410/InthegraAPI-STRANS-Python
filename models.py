@@ -54,8 +54,8 @@ class Bus(object):
         self.latidude = float(latidude)
         self.longitude = float(longitude)
         self.hour_str = hour
-        h, m = hour.split(':')
-        self.hour = datetime.datetime.now().replace(hour=int(h), minute=int(m), second=0)
+        h, m, s = hour.split(':')
+        self.hour = datetime.datetime.now().replace(hour=int(h), minute=int(m), second=int(s))
 
     def __str__(self):
         return "Bus: %d, , Lat.: %f, Long.: %f, Hora-str: %s, Hora: %s" % (self.code,
