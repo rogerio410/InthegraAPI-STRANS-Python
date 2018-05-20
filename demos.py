@@ -1,9 +1,10 @@
 from inthegra import InthegraAPI
 from exceptions import ItemNotFound
+from decouple import config
 
-email = 'rogerio410@gmail.com'
-password = ''
-api_key = ''
+email = config("EMAIL")
+password = config("PASSWORD")
+api_key = config("API_KEY")
 
 token = InthegraAPI.signin(email, password, api_key)
 
@@ -41,8 +42,8 @@ def test_posicao_veiculos_por_linha(codigo_linha):
             print(o)
     except ItemNotFound as e:
         print(e)
-    except:
-        print('Falha desconhecida')
+    except Exception as e:
+        print('Falha desconhecida: ', e)
 
 
 def imprimir_paradas(paradas):
@@ -54,7 +55,7 @@ def imprimir_paradas(paradas):
 
 # Descomente as linhas abaixo para testa as funcionalidades.
 
-#test_linhas('Baix')
-#test_paradas('1200')
-#test_paradas_por_linha('0505')
-test_posicao_veiculos_por_linha('0505')
+test_linhas('VILA DO AVIAO')
+#test_paradas('0301')
+#test_paradas_por_linha('0518')
+#test_posicao_veiculos_por_linha('0518')
