@@ -18,8 +18,7 @@ rogerio.silva at ifpi.edu.br
 ## Requisitos
 
 - Python 3 (Para uso com Python 2.7, basta basta ajustar a função ```print``` no demo.py)
-- Python Requests: 
-```$ pip install requests```
+- ```$ pip install -r requirements.txt```
 
 ## Demonstração de Uso
 
