@@ -1,6 +1,7 @@
-from inthegra import InthegraAPI
-from exceptions import ItemNotFound
 from decouple import config
+
+from inthegra.inthegra import InthegraAPI
+from inthegra.exceptions import ItemNotFound
 
 email = config("EMAIL")
 password = config("PASSWORD")
@@ -9,7 +10,7 @@ api_key = config("API_KEY")
 token = InthegraAPI.signin(email, password, api_key)
 
 
-def test_linhas(str):
+def test_linhas(str=""):
     linhas = InthegraAPI.routes(query=str)
 
     for l in linhas:
@@ -55,7 +56,8 @@ def imprimir_paradas(paradas):
 
 # Descomente as linhas abaixo para testa as funcionalidades.
 
-test_linhas('VILA DO AVIAO')
+#test_linhas()
+#test_linhas('VILA DO AVIAO')
 #test_paradas('0301')
 #test_paradas_por_linha('0518')
-#test_posicao_veiculos_por_linha('0518')
+test_posicao_veiculos_por_linha('0518')

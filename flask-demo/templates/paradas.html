@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block extrajs %}
+    {{mapa.js}}
+{% endblock %}
+
+{% block title %}
+    Paradas
+{% endblock %}
+
+{% block content %}
+
+    <h2>Paradas da linha: {{ linha.code }} - {{ linha.name }}</h2>
+
+    {{ mapa.html }}
+
+
+    <table>
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nome / Descrição</th>
+                <th>Endereço</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for parada in paradas %}
+                <tr>
+                    <td>{{ parada.code }}</td>
+                    <td>{{ parada.name }}</td>
+                    <td>{{ parada.address }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

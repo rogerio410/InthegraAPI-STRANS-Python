@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block extrajs %}
+    {{mapa.js}}
+{% endblock %}
+
+{% block title %}
+    Ônibus
+{% endblock %}
+
+{% block content %}
+
+    {% if onibuss %}
+
+    {% if linha %}
+        <h2>Ônibus (ao vivo) da linha: {{ linha.code }} - {{ linha.name }}</h2>
+    {% else %}
+        <h2>Todos os ônibus (ao vivo)</h2>
+    {% endif %}
+
+    {{ mapa.html }}
+
+    <table>
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Localização(Geo)</th>
+                <th>Horário</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for onibus in onibuss %}
+                <tr>
+                    <td>{{ onibus.code }}</td>
+                    <td>GPS:{{ onibus.latitude }}, {{ onibus.longitude }} </td>
+                    <td>{{ onibus.hour_str }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+    {% endif %}
+
+
+
+{% endblock %}

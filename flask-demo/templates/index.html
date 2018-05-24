@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Linhas
+{% endblock %}
+
+{% block content %}
+
+    <h1>Linhas de Ônibus - Teresina/PI</h1>
+
+    <p>Pesquisa</p>
+    <form action="/" method="post">
+        <label for="query">Busca</label>
+        <input id="query" name="query" placeholder="Termo de Busca"/>
+        <input type="submit" value="Buscar" />
+    </form>
+
+    {% if linhas %}
+
+    <table>
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nome / Descrição</th>
+                <th>Origem</th>
+                <th>Retorno</th>
+                <th>Circular?</th>
+                <th>#</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for linha in linhas %}
+                <tr>
+                    <td>{{ linha.code }}</td>
+                    <td>{{ linha.name }}</td>
+                    <td>{{ linha.source_location }}</td>
+                    <td>{{ linha.return_location }}</td>
+                    <td>{{ linha.circular }}</td>
+                    <td>
+                        <a href="/paradas/{{linha.code}}">Paradas</a> <br />
+                        <a href="/onibus/{{linha.code}}">Ônibus</a> <br />
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% endif %}
+
+{% endblock %}

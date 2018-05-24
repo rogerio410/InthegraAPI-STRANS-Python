@@ -1,8 +1,10 @@
-import requests
-import json
 import datetime
-from models import Route, BusStop, Bus
-from exceptions import ItemNotFound
+import json
+
+import requests
+from .models import Route, BusStop, Bus
+
+from inthegra.exceptions import ItemNotFound
 
 
 class Token(object):
@@ -139,7 +141,7 @@ class InthegraAPI(object):
                 bus_stop = BusStop(code=parada.get('CodigoParada'),
                                  name=parada.get('Denomicao'),
                                  address=parada.get('Endereco'),
-                                 latidude=parada.get('Lat'),
+                                 latitude=parada.get('Lat'),
                                  longitude=parada.get('Long'),
                                  )
                 paradas.append(bus_stop)
@@ -175,13 +177,54 @@ class InthegraAPI(object):
             # Os Veiculos da Linha
             for onibus in linha.get('Veiculos'):
                 bus = Bus(code=onibus.get('CodigoVeiculo'),
-                               latidude=onibus.get('Lat'),
+                               latitude=onibus.get('Lat'),
                                longitude=onibus.get('Long'),
-                               hour=onibus.get('Hora')
+                               hour=onibus.get('Hora'),
+                               route=route
                           )
                 buses.append(bus)
 
             return route, buses
+        else:
+            print(result.json()['code'], result.json()['message'])
+            raise ItemNotFound('Nao há veiculos circulação disponiveis')
+
+    @classmethod
+    def all_bus(cls):
+        """ bus_position_by_route_code(code) -> route, list of buses """
+
+        headers = cls.__get_headers()
+        headers['X-Auth-Token'] = cls.token.token
+
+        url = cls.url + '/veiculos'
+
+        # Faz chamada pelas paradas
+        result = requests.get(url, headers=headers)
+
+        buses = []
+
+        if result.status_code == 200:
+            for registro in result.json():
+                # A Linha
+                linha = registro['Linha']
+                route = Route(code=linha.get('CodigoLinha'),
+                              name=linha.get('Denomicao'),
+                              source_location=linha.get('Origem'),
+                              return_location=linha.get('Retorno'),
+                              circular=linha.get('Circular')
+                              )
+
+                # Os Veiculos da Linha
+                for onibus in linha.get('Veiculos'):
+                    bus = Bus(code=onibus.get('CodigoVeiculo'),
+                              latitude=onibus.get('Lat'),
+                              longitude=onibus.get('Long'),
+                              hour=onibus.get('Hora'),
+                              route=route
+                              )
+                    buses.append(bus)
+
+            return buses
         else:
             print(result.json()['code'], result.json()['message'])
             raise ItemNotFound('Nao há veiculos circulação disponiveis')

@@ -22,21 +22,25 @@ class Route(object):
 class BusStop(object):
     """ Representa uma parada de Onibus conforme a API Inthegra"""
 
-    def __init__(self, code, name, address, latidude, longitude):
+    def __init__(self, code, name, address, latitude, longitude):
         self.code = code
         self.name = name
         self.address = address
         if not longitude is None:
-            self.latidude = float(latidude)
+            self.latitude = float(latitude)
             self.longitude = float(longitude)
             self.has_gps_location = True
         else:
-            self.latidude = 0.0
+            self.latitude = 0.0
             self.longitude = 0.0
             self.has_gps_location = False
 
     def __str__(self):
-        return "Parada: %s, Nome: %s, Endereco: %s, Lat.: %f, Long.: %f" % (self.code, self.name, self.address, self.latidude, self.longitude)
+        return "Parada: %s, Nome: %s, Endereco: %s, Lat.: %f, Long.: %f" % (self.code, self.name, self.address, self.latitude, self.longitude)
+
+    @property
+    def info(self):
+        return self.name
 
 
 class Bus(object):
@@ -49,18 +53,22 @@ class Bus(object):
         hour -- datetime object from hour_str
     """
 
-    def __init__(self, code, latidude, longitude, hour):
+    def __init__(self, code, latitude, longitude, hour, route):
         self.code = int(code)
-        self.latidude = float(latidude)
+        self.latitude = float(latitude)
         self.longitude = float(longitude)
         self.hour_str = hour
         h, m, s = hour.split(':')
         self.hour = datetime.datetime.now().replace(hour=int(h), minute=int(m), second=int(s))
+        self.route = route
 
     def __str__(self):
         return "Bus: %d, , Lat.: %f, Long.: %f, Hora-str: %s, Hora: %s" % (self.code,
-                                                                           self.latidude,
+                                                                           self.latitude,
                                                                            self.longitude,
                                                                            self.hour_str,
                                                                            self.hour.strftime('%x %X'))
 
+    @property
+    def info(self):
+        return str(self.code) + ': '+self.route.name
