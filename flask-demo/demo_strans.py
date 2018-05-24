@@ -35,32 +35,6 @@ def paradas(codigo):
     return render_template('paradas.html', linha=linha, paradas=paradas, mapa=mapa)
 
 
-def gerar_mapa(points, icon):
-    marcadores = []
-    for point in points:
-        marcador = {
-            'icon': icon,
-            'lat': point.latitude,
-            'lng': point.longitude,
-            'infobox': "<b>{}</b>".format(point.info)
-        }
-        marcadores.append(marcador)
-
-    # mapa
-    mapa = Map(
-        identifier="mapa",
-        style="height:600px;width:800px;margin:0;",
-        language="pt-BR",
-        region="BR",
-        lat=-5.0773754,
-        lng=-42.7621506,
-        zoom=13,
-        markers=marcadores
-    )
-
-    return mapa
-
-
 @app.route('/onibus/<string:codigo>')
 def onibus(codigo):
     try:
@@ -88,6 +62,32 @@ def all_onibus():
     return render_template('onibus.html', linha=None, onibuss=onibuss, mapa=mapa)
 
 
+
+### Utils
+def gerar_mapa(points, icon):
+    marcadores = []
+    for point in points:
+        marcador = {
+            'icon': icon,
+            'lat': point.latitude,
+            'lng': point.longitude,
+            'infobox': "<b>{}</b>".format(point.info)
+        }
+        marcadores.append(marcador)
+
+    # mapa
+    mapa = Map(
+        identifier="mapa",
+        style="height:600px;width:800px;margin:0;",
+        language="pt-BR",
+        region="BR",
+        lat=-5.0773754,
+        lng=-42.7621506,
+        zoom=13,
+        markers=marcadores
+    )
+
+    return mapa
 
 if __name__ == '__main__':
     app.run()
